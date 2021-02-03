@@ -8,6 +8,7 @@ int main(){
 	init(&t);
 
 	insert(&t,100);
+	
 	inorder_traverse(t);
 	remove_node(&t,100);
 	printf("\n");

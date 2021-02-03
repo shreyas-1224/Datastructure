@@ -4,7 +4,7 @@
 #include "bst.h"
 
 void init(bst *t){
-	*t=NULL;
+	(*t) = NULL;
 	return ;
 }
 
@@ -12,7 +12,7 @@ void insert(bst *t,int data){
 
 	bst p,q;
 	
-	bst newnode = (bst)malloc(sizeof(node));
+	bst newnode = (node *)malloc(sizeof(node));
 	newnode->data = data;
 	newnode->left = NULL;
 	newnode->right = NULL;
@@ -150,7 +150,7 @@ int height(bst t){
 }
 
 
-*/
+
 
 int total_elements(bst t){  // include node element and left nodes and right nodes..
 
@@ -162,7 +162,7 @@ int total_elements(bst t){  // include node element and left nodes and right nod
 	return 1 + total_elements(t->left) + total_elements(t->right);
 	
 }
-/*
+
 
 int leaf_nodes(bst t){
 	
@@ -252,7 +252,7 @@ void inorder_traverse(bst t){
 			
 		else{
 			if( p_isempty(s) )	break;
-			curr = p_p_pop(&s);
+			curr = p_pop(&s);
 			printf("%d ",curr->data);
 			curr = curr->right;
 		}
@@ -364,118 +364,7 @@ void right_view(bst t){  // right view is basically last element from each level
 }
 
 
-*/
 
-void remove_node(bst* t , int data){
-
-	if((*t) == NULL) return ;
-	
-	bst p,q = NULL;
-	p = (*t) ;
-	int side;
-	
-	while(p){
-	
-	
-		if(p->data == data)	break;
-		
-		else if(p->data > data ) {
-			q = p;
-			side = 0;
-			p = p->left;
-		}
-		
-		else {
-			q = p;
-			side = 1;
-			p = p->right;
-		
-		}
-	}
-		
-	if(p == NULL) return ;
-	
-	if (p->left == NULL && p->right == NULL){
-	
-		if(q == NULL){               // only root node.
-			(*t) == NULL;
-			free(p);
-			return ;
-		}
-		
-		if(side){
-			
-			q->right = NULL;
-			free(p);
-			return ;
-		}
-		
-		else{
-			
-			q->left = NULL;
-			free(p);
-			return ;
-		
-		}
-		
-	
-	}
-	
-	else if(p->left != NULL && p->right == NULL){
-		
-		if(q == NULL)	   (*t) = p->left;
-		
-		if( side == 0 )    q->left = p->left ;
-		
-		else		    q->right = p->left;
-		
-		free(p);
-	}
-	
-	else if(p->left == NULL && p->right != NULL){
-		
-		if(q == NULL)	   (*t) = p->right;
-		
-		if( side == 0 )    q->left = p->right;
-		
-		else		    q->right = p->right;
-		
-		free(p);
-	}
-	
-	else{
-	
-		bst r = NULL,s = NULL;
-		// go to the left then to the right most node. 
-		//second thing : go to the right and then left most.
-		
-		s = p->left;
-		
-		while(s->right){
-			
-			r = s;
-			s = s->right ; 	
-			
-		}
-		// copy data of node s to p; 
-		// make right of r as NULL if s in lesf else make right of r as left of s; 
-		// free(s);
-		
-		p->data = s->data;
-		p->right = s->left;
-		free(s);
-		
-		
-	}
-	
-	
-
-}
-
-	
-
-
-/*
 
 
 void right_view(bst t){
@@ -544,3 +433,164 @@ void left_view(bst t){
 }
 
 */
+
+void remove_node(bst *t , int data){
+	
+	    if(t == NULL)	return;
+
+	    node *p, *q;
+	    // set the pointer p to the root and q = NULL
+	    p = (*t);
+	    q = NULL;
+
+	    // searching for the node in the tree
+	    int side;
+	    while(p) {
+		if(data == p->data) {
+            		break;
+		}
+		q = p;
+		if(data < p->data) {
+		    p = p->left;
+		    side = 0;
+		}
+		else {
+		    p = p->right;
+		    side = 1;
+		}
+	    }
+
+		// if p is null that means node is not found so return p
+		if(p == NULL)	return;
+
+		// we come here means node is found so now check cases and free
+		// p is not null
+		// leaf node
+		if(p->left == NULL && p->right == NULL) {
+		    if(q == NULL ) {
+		        (*t) = NULL;
+		        free(p);
+		        return;
+		    }
+		    
+		    if(side) {
+		        q->right = NULL;
+		    }
+		    else {
+		        q->left = NULL;
+		    }
+		    free(p);
+		    return;
+		}
+
+		// one chilren
+		// suppose the P node have only one child and that is left child
+		if(p->left && !p->right) {
+		    // p can be a root node
+		    if(q == NULL) {
+		        (*t) = p->left;
+		        free(p);
+		        return;
+		    }
+		    //
+		    if(side == 0) {
+		        q->left = p->left;
+		        free(p);
+		        return;
+		    }
+		    else {
+		        q->right = p->left;
+		        free(p);
+		        return;
+		    }
+		}
+
+		// suppose the P node have only one child and that is right child
+		if(!p->left && p->right) {
+		    // p can be a root node
+		    if(q == NULL) {
+		        (*t) = p->right;
+		        free(p);
+		        return;
+		    }
+		    //
+		    if(side == 0) {
+		        q->left = p->right;
+		        free(p);
+		        return;
+		    }
+		    else {
+		        q->right = p->right;
+		        free(p);
+		        return;
+		    }
+		}
+
+		//two children
+
+		if(p->left && p->right) { // p is the node with both children
+
+		    node *r, *s = NULL;
+		    r = p->left;
+
+		    while(r->right) {
+		        s = r;
+		        r = r->right;
+		    }
+
+		    // if the S is null
+		    // copy R to P
+		    // make p-> left as null and free r
+
+		    if(!s) {
+		        p->data = r->data;
+		        p->left = NULL;
+		        free(r);
+		        return;
+		    }
+		    // we are at the rightmost place of the left subtree
+		    // if there is a node at the left of the R then
+		    p->data = r->data;
+		    if(r->left) {
+		        s->right = r->left;
+		    }
+		    else
+		        s->right = NULL;
+
+		    // transfer the data from the R to P
+		    
+		    s->right = r->left;
+		    free(r);
+		}
+	    return;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
