@@ -1,0 +1,15 @@
+to run program : gcc express.c main.c stack.c pstack.c new.c -lm
+
+first converted given infix to postfix expression ;
+as we scan the whole string of size n , time complexity is O(n);
+
+now to create an expression tree, Again we have to traverse the whole character array of postfix expression . 
+each element at a time and with that element creating a node. if size of postfix expression is m , 
+time complexity to convert a postfix expression into an expression tree is O(m) ;
+
+space complexity will also be O(m) as we need m stack spaces for elements to store ; 
+
+therefore ;
+
+total space complexity : O(m)
+total time complexity  : O(m + n) ;

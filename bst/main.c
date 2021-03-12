@@ -8,23 +8,16 @@ int main(){
 	init(&t);
 
 	insert(&t,100);
+	insert(&t,200);insert(&t,50);insert(&t,25);
+	insert(&t,150);insert(&t,300);insert(&t,160);
+	insert(&t,90);insert(&t,99);insert(&t,170);
+	insert(&t,100);insert(&t,22);insert(&t,180);
 	
 	inorder_traverse(t);
-	remove_node(&t,100);
 	printf("\n");
-	inorder_traverse(t);
+	longest_path(t);
 	
 	
-	/*printf("max element : %d\n",max_element(t));
-	printf("min element : %d\n",min_element(t));
-	printf("total elements : %d\n",total_elements(t));	
-	printf("total leaf nodes : %d\n",leaf_nodes(t));
-	printf("is tree full ? :%d\n ",isfull(t) );
-	printf("level order traversal : ");
-	level_order(t);
-	//right_view(t);
-	//printf("\n");
-	left_view(t);*/
 	
 	
 	return 0;

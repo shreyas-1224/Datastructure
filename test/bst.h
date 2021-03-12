@@ -31,6 +31,7 @@ void left_view(bst);
 void bottom_view(bst);
 void top_view(bst);
 void longest_path(bst);
+
 //_____________________________________________________________
 
 //queue that can include the nodes.
@@ -62,6 +63,28 @@ int p_isfull(p_stack );
 bst p_pop(p_stack *);
 bst p_peek(p_stack);
 
+//********************************************
+
+// array implementation of binary search tree . 
+
+typedef struct nodee{
+
+	int *arr;
+	int size;
+	int total;
+
+}bst_arr;
+
+
+void ar_init(bst_arr* , int );
+void ar_insert(bst_arr* , int);
+void ar_traverse(bst_arr);
+void ar_inorder_traverse(bst_arr, int);
+void ar_preorder_traverse(bst_arr,int);
+void ar_postorder_traverse(bst_arr,int);
+void ar_int_max(bst_arr*);
+void ar_delete(bst_arr* ,int );
+void convert(bst , bst_arr* , int );
 
 
 

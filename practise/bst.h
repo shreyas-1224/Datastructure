@@ -31,6 +31,11 @@ void left_view(bst);
 void bottom_view(bst);
 void top_view(bst);
 void longest_path(bst);
+int* longest_array(bst);
+void mirror(bst*);
+void copy_tree(bst , bst*);
+int width(bst );
+
 //_____________________________________________________________
 
 //queue that can include the nodes.
@@ -57,9 +62,9 @@ typedef struct stack{
 
 void p_init(p_stack *,int );
 int p_isempty(p_stack );
-void p_push(p_stack *,bst );
+void push(p_stack *,bst );
 int p_isfull(p_stack );
-bst p_pop(p_stack *);
+bst pop(p_stack *);
 bst p_peek(p_stack);
 
 

@@ -1,8 +1,10 @@
 
 typedef struct node{
-	int data;
+	int mis;
+	char *name;
 	struct node *left;
 	struct node *right;
+	struct node *parent;
 }node;
 
 
@@ -10,27 +12,15 @@ typedef node* bst;
 
 
 void init(bst* );
-void insert(bst* , int );
-void inorder_traverse(bst);  
-void preorder_traverse(bst);
+void insert(bst* ,bst* , int, int ,char* );
 void postorder_traverse(bst);
-int search(bst,int);
-int max_element(bst);
-int height(bst t);
-int total_elements(bst );
-int leaf_nodes(bst);
-int min_element(bst);
-int isfull(bst );
-int iscomplete(bst);
-void level_order(bst);
-int diameter(bst);
-int isbalanced(bst);
+char* search(bst,int);
+void level_i(bst,int);
 void remove_node(bst*,int);
-void right_view(bst );
-void left_view(bst);
-void bottom_view(bst);
-void top_view(bst);
-void longest_path(bst);
+void destroy(bst );
+void inorder_traverse(bst );
+void destroy_all(bst *);
+void copy(char**,char*);
 //_____________________________________________________________
 
 //queue that can include the nodes.

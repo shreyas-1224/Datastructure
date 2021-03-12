@@ -66,7 +66,7 @@ void inorder_traverse(bst t){
 	
 }
 
-/*
+
 void postorder_traverse(bst t){
 	
 	if(t== NULL){
@@ -138,13 +138,12 @@ int max_element(bst t){
 
 int height(bst t){
 	
-	if(t == NULL) return 0;
+	if(t == NULL) return -1;
 	int l = height(t->left);
 	int r = height(t->right);
 	
 	if(l>r) return 1+l;
 	else	return 1+r;
-	
 	
 	
 }
@@ -235,7 +234,7 @@ void level_order(bst t){
 
 
 
-inorder traversal using loops 
+/*inorder traversal using loops 
 
 void inorder_traverse(bst t){
 	p_stack s; p_init(&s,total_elements(t));
@@ -245,7 +244,7 @@ void inorder_traverse(bst t){
 	while(1){
 		
 		if(curr != NULL){
-			p_p_push(&s,curr);
+			p_push(&s,curr);
 			curr = curr->left;
 		     
 			}
@@ -300,7 +299,7 @@ void preorder_traverse(bst t){
 
 }
 
-
+*/
 int diameter(bst t){
 	
 	if (t==NULL)	return 0;
@@ -322,48 +321,20 @@ int diameter(bst t){
 
 	
 
-bool isbalanced(bst t){
+int isbalanced(bst t){
 	
-	if (t == NULL)	return true;
+	if (t == NULL)	return 1;
 	
-	bool left = isbalanced(t->left);
-	bool right = isbalanced(t->right);
+	int left = isbalanced(t->left);
+	int right = isbalanced(t->right);
 	
-	int diff = height(t->left)-height(t->right) < 2 ? bool diff = true : bool diff = false;
+	int diff = height(t->left)-height(t->right) < 2 ? 1 : 0;
 	
-	if(diff && left && right)	return true;
-	else	return false;
+	if(diff && left && right)	return 1;
+	else	return 0;
 
 
 }
-
-
-
-void right_view(bst t){  // right view is basically last element from each level...
-	
-	if(t == NULL) return ;
-	
-	queue q; 
-	q_init(&q,total_elements(t));
-	enqueue(&q,t); enqueue(&q,NULL);
-	bst l; init(&l);
-	
-	while(!(is_empty(q))){
-		
-		l = dequeue(&q);
-		printf("%d ",l->data);
-		
-		if(l->left != NULL){enqueue(&q,l->left);}
-		if(l->right != NULL){enqueue(&q,l->right);}	
-		
-		
-	}
-	return ;
-	
-
-}
-
-
 
 
 
@@ -432,7 +403,7 @@ void left_view(bst t){
 
 }
 
-*/
+
 
 void remove_node(bst *t , int data){
 	
@@ -566,13 +537,18 @@ void remove_node(bst *t , int data){
 }
 
 
-
-
-
-
-
-
-
+void longest_path(bst t){
+	
+	while(t != NULL){
+		printf("%d",t->data);
+		
+		if(height(t->left) > height(t->right))	t = t->left;
+		else 	
+			t = t->right;
+	
+	}
+	return;
+}
 
 
 
