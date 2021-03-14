@@ -47,7 +47,7 @@ void insert_heap(heap *h , int data){
 void traverse_heap(heap h){
 
     int i = 0;
-    while(i <= h.rear){
+    while(i < h.rear){
         printf("%d\t",h.arr[i++]);
     }
     return;
@@ -56,7 +56,7 @@ void traverse_heap(heap h){
 void delete_heap(heap *h ){		// deletion from the front only . 
 	
 	if(h->rear == - 1){
-		printf("empty heap");
+		//printf("empty heap");
 		return ;
 	}	
 	
