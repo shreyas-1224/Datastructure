@@ -47,7 +47,7 @@ void insert_heap(heap *h , int data){
 void traverse_heap(heap h){
 
     int i = 0;
-    while(i < h.rear){
+    while(i <= h.rear){
         printf("%d\t",h.arr[i++]);
     }
     return;
@@ -98,7 +98,44 @@ void delete_heap(heap *h ){		// deletion from the front only .
 	return ;
 } 
 	
-				
+void heapify_min(heap* h, int i ){
+	
+	int l = 2*i + 1 ; 
+	int r = 2*i + 2 ;
+	int min = i ;
+	
+	if(l <= h->rear  && h->arr[l] < h->arr[min]){
+		min = l ;
+	}
+	
+	if(r <= h->rear  && h->arr[r] < h->arr[min]){
+		min = r ;
+	}
+	
+	if(min != i)	{
+		swap(&(h->arr[i]),&(h->arr[min]));
+		heapify_min(h , min);
+	}
+	
+	else 		return ;
+}
+
+void max_to_min(heap* h){
+	
+	int i = (h->rear - 1) / 2 ;
+	while(i >= 0){
+		heapify_min(h , i);
+		i-- ;
+	}	
+	traverse_heap(*h);
+}	
+
+void swap(int *a,int *b){
+   
+   int temp = *a;
+   *a = *b;
+   *b = temp;
+}		
 
 
 

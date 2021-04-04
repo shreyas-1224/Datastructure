@@ -1,73 +1,35 @@
 #include<stdio.h>
 #include<stdlib.h>
-#include<limits.h>
 #include "heap.h"
 
-int main(int argc , char **argv){
+int main(){
 	
-    heap h;
-    
-    FILE * fp;
-    fp=fopen(argv[1],"r+");
-    
-    if(fp==NULL){
-    	printf("unable to open ");
-    	return 0;
-    }
-    
-    int a,c;
-   // fscanf(fp,"%d ",&a);
-    //sinit_heap(&h,a);
-    int i = 0;
-
-    while(fscanf(fp,"%d",&c)!=EOF){	
+	heap h ;int i=0;
+	init_heap(&h,10);
 	
-	i++ ;
-    }
-    
-    fclose(fp);
-    
-    //___________________________
-    
-    FILE * fpp;
-    fpp=fopen(argv[1],"r+");
-    
-    if(fpp == NULL)
-    	{
-    		printf("unable to open ");
-    		return 0;
-    	}
-    
-    
-    init_heap(&h,i);
-    i = 0;
-
-    while(fscanf(fp,"%d",&c)!=EOF){	
+	// 3 5 9 6 8 20 10 12 18 9
 	
-	i++;
-	insert_heap(&h , c);
-    }
-    
-    //___________________________
-    
-    int j ;
-    
-    for(j = 0;j < i ; j++){
-    	
-    	delete_heap(&h);
-    
-    }
-
-    fclose(fpp);
-    
-    
-    for(int i = 0 ; i< j+1 ;i++){
-    	delete_heap(&h);
-   }
-   h.rear = h.size - 1 ;
-   traverse_heap(h);
-  
-   
-   
-
+	insert_heap(&h,30);//
+	insert_heap(&h,52);//
+	insert_heap(&h,9);//
+	insert_heap(&h,600);
+	insert_heap(&h,-8);//
+	insert_heap(&h,20);
+	insert_heap(&h,10);
+	insert_heap(&h,121);
+	insert_heap(&h,181);
+	insert_heap(&h,-90);
+	traverse_heap(h);	
+	printf("\n");
+	/*while(i<10){
+		delete_heap(&h);
+		i++;
+	}*/
+	//h.rear = h.size - 1 ;
+	//traverse_heap(h);
+	//printf("\n");
+	min_to_max(&h);
+	
 }
+
+
