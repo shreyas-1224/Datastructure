@@ -26,7 +26,8 @@ void insert_heap(heap *h , int data){
 	h->arr[h->rear] = data ; 	// data inserted at leaf nodes , now just compare and swap the nodes . 
 	
 	int i = h->rear ; 
-	int j = (i- 1) / 2 ;
+	int j = (i- 1) / 2 ;		// gives parent node.
+	
 
 	while(j >= 0 && (h->arr[j] < h->arr[i])){
 			

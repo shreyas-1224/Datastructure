@@ -552,7 +552,27 @@ void longest_path(bst t){
 
 
 
-
+int total_nonleaf(bst t){
+	
+	int count = 0 ;
+	queue q ;
+	q_init(&q , total_elements(t));
+	bst temp = t ;
+	enqueue(&q , t);
+	
+	while(!is_empty(q)){
+		temp = dequeue(&q) ;
+		//printf("%d",temp->data);
+	
+		if(temp->right != NULL  || temp->left != NULL){
+			count++ ;
+			if(temp->left != NULL)	enqueue(&q,temp->left);
+			if(temp->right != NULL) enqueue(&q, temp->right);
+		}
+		
+	}
+	return count ;
+}
 
 
 

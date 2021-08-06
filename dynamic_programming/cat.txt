@@ -1,0 +1,2 @@
+problem - > smaller problems 
+smaller problems repeats themself ... then we get intution of DP 

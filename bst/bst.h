@@ -31,6 +31,7 @@ void left_view(bst);
 void bottom_view(bst);
 void top_view(bst);
 void longest_path(bst);
+int total_nonleaf(bst );
 //_____________________________________________________________
 
 //queue that can include the nodes.

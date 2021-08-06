@@ -6,19 +6,30 @@
 #include "queue.h"
 
 
+int find_parent(int i , int* parent){
+	if(parent[i] == i)
+		return i ;
+	find_parent(parent[i] , parent);
+}
+
 void g_init(graph *g, char* name){
 	
 	FILE* fptr ;
-	
+
 	fptr = fopen(name , "r");
 	if(fptr == NULL)	return ;
 	
 	fscanf(fptr,"%d",&(g->n));
-	int visited[g->n];
+	g->e = 0;
+	g->a = (int**)malloc(sizeof(int*)* g->n);
 	
 	for(int i = 0 ; i < g->n ; i++){
+		
+		g->a[i] = (int *)malloc(sizeof(int) * g->n);
 		for(int j = 0 ; j < g->n ; j++){
 			fscanf(fptr,"%d",&(g->a[i][j]));
+			if(g->a[i][j] != 0)	
+				g->e ++ ;
 		}
 	}
 	
@@ -27,6 +38,7 @@ void g_init(graph *g, char* name){
 	return ;
 		
 }
+
 
 void print(graph g){
 	
@@ -45,10 +57,12 @@ void print(graph g){
 
 int visited[20] ;
 
-// using recursion ; 
+
 
 void DFS(graph g , int u){
 	
+	/*
+	//using recursion 
 	visited[u] = 1 ;
 	
 	for(int i = 0 ; i < g.n ; i++){
@@ -57,6 +71,26 @@ void DFS(graph g , int u){
 			printf("%d--%d\n",u,i);
 			DFS(g , i);
 		}
+	}*/
+	
+	int visited[g.n ] ;
+	stack s ;
+	init(&s , g.n);
+	push(&s , u);
+	visited[u] = 1 ;
+	
+	while(!isempty(s)){
+	
+		u = pop(&s) ;
+		//visited[u] = 1 ;
+		for(int i = 0 ; i < g.n ; i++){
+			if(visited[i] != 1 && g.a[u][i]){
+				push(&s ,i);
+				visited[i] = 1 ;
+			}
+		}
+		
+		printf("%d-->",u);
 	}
 }
 
@@ -118,94 +152,111 @@ void DFS_loop(graph g , int u){
 }
 
 
-void prims(graph g , int u){
+/*
+we cant really use this function to check the total number of cycles in the graph. but this work for both directed and undirected graph.
+//(time complexity reason)
+
+void is_cycle(graph g){
 	
-	int visited[g.n] ;
-	int parent[g.n] ; parent[u] = -1 ;
-	int mst_key[g.n] ;
-	int psudo_parent = 2 ;
+	int count = 0 ;
+	int parent[g.n];
+	int visited[g.n];
 	
 	for(int i = 0 ; i < g.n ; i++){
-		
+		parent[i] = i ;
 		visited[i] = 0 ;
-		mst_key[i] = INT_MAX ;
-	} 
-	mst_key[u] = 0 ;
-	visited[u] = 1 ;
-
-	for(int m = 0; m < g.n - 1; m++){
-	
-	
-	//-------------------------assign values to the respective array mst_key-------------------
-	
-		for(int l =0; l < g.n ; l++){
-		
-			if(visited[l] != 1 && g.a[u][l] != 0){
-				if(g.a[u][l] < mst_key[l]){
-					mst_key[l] = g.a[u][l];
-				
-				}
-
-			}
-		
-		}	
-		
-		
-	//-------------------------finding minimum of that array ----------------------------------
-	
-		int min = INT_MAX , min_index = u ,j ; 
-		for(j =0 ; j < g.n ; j++){
-			if(min > mst_key[j] && visited[j] != 1){
-				min  = mst_key[j];
-				min_index = j ;
-			}
-		
-		}
-		
-		visited[min_index] = 1 ;
-		
-				
-		while(min != g.a[u][min_index]){
-			
-			if( (parent[u] != -1 ) && min == g.a[parent[u]][min_index]){
-				psudo_parent = u ;
-				u = parent[u] ;
-				
-			}
-			
-			else if (min == g.a[psudo_parent][min_index])	{
-				psudo_parent = u ;
-				u = psudo_parent ;
-			}
-			break;
-			
-		}
-		
-		parent[min_index] = u ;
-		u = min_index ;
-	} 
-	
-	// printing ;
-	
-	for(int i = 0 ; i < g.n ; i++){
-		printf("%d--%d\n", parent[i],i);
 	}
 	
 	
+	for(int i = 0 ; i < g.n ; i++){
 	
+		visited[i] = 1 ;
+		for(int j = 0 ;  j < g.n ; j++){
+			
+			if(g.a[i][j]){
+				if(visited[j] == 0 ){
+					 if(parent[i] == parent[j])
+						count ++ ;
+				
+					else
+						parent[j] = i ;
+				}
+			}
+		}
+	}	
+	
+	printf("total count of cycle is : %d\n",count);
+
 	
 }
+*/
+
+// finding cycle in a directed graph using dfs .
+
+void is_cycle(graph g){
+
+	// we will use an visited array and dfs . 
+	int count = 0, u ;
+	
+	int visited[g.n] ;
+	
+	for(int i = 0 ; i < g.n ; i++){
+		visited[i] = 0 ;
+	}
+	stack s ;
+	init(&s , g.n);
+	
+	//start from zero ;
+	push(&s,0);
+	
+	while(! isempty(s)){
+		
+		u = pop(&s);
+		visited[u] = 1 ;
+		
+		for(int i = 0 ; i < g.n ; i++){
+			
+			if(visited[i] == 0 && g.a[u][i])
+				push(&s,i);
+			
+			else if(visited[i] == 1 && g.a[u][i]){
+				//printf("reached");
+				count++ ;
+				push(&s, i);
+			}
+		}
+	}
+	
+	printf("total number of cycles are : %d\n",count);
+} 
 
 
 
-
-
-
-
-
-
-
-
+int is_bipartite(graph g){
+	
+	int visited[g.n] ;
+	for(int i = 0 ; i < g.n ; i++)
+		visited[i] = 0 ;
+	queue q ;
+	q_init(&q,g.n);
+	enqueue(&q , 0);
+	visited[0] = 1 ;
+	while(!(q_isempty(q))){
+		
+		int u = dequeue(&q);
+		for(int i = 0 ; i < g.n ; i++){
+			
+			if(g.a[u][i] != 0 && (visited[u] == visited[i]))
+				return 0 ;
+				
+			else if(visited[i] == 0 && g.a[u][i] != 0){
+				visited[i] = ( visited[u] == 1 ) ? 2 : 1 ;
+				enqueue(&q ,1);
+			}
+		}
+	}
+	return 1 ;
+}
 
 
 

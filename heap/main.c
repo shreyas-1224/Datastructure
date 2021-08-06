@@ -21,14 +21,14 @@ int main(){
 	insert_heap(&h,-90);
 	traverse_heap(h);	
 	printf("\n");
-	/*while(i<10){
+	while(i<10){
 		delete_heap(&h);
 		i++;
-	}*/
-	//h.rear = h.size - 1 ;
-	//traverse_heap(h);
+	}
+	h.rear = h.size - 1 ;
+	traverse_heap(h);
 	//printf("\n");
-	min_to_max(&h);
+	//min_to_max(&h);
 	
 }
 

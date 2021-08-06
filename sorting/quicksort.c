@@ -27,7 +27,7 @@ int partition(char a[],int first,int last){
 	while(i<j)
 	{
 	
-		while(a[i]<=pivot && i<last){
+		while(a[i]<=pivot && i<last){  
 			i++;
 		}
 		
@@ -42,6 +42,7 @@ int partition(char a[],int first,int last){
 	
 	a[first]=a[j];
 	a[j]=pivot;
+	printf("%c\n",a[j]);
 	return j;
 	
 }
@@ -49,21 +50,11 @@ int partition(char a[],int first,int last){
 
 
 int main(){
-	char ar[50];
-	fgets(ar,sizeof(ar),stdin);
-	char newar[50];
-	int i=0,j=0;
-	while(ar[i]!='\0'){
-		if(ar[i]!=' '){
-			newar[j]=ar[i];
-			j++;
-		}
-		i++;
-
+	char ar[10] = {'v','a','r','j','c','z','w','p','g','u'} ;
+	quicksort(ar , 0 , 9);
+	for(int i = 0 ; i < 10 ; i++){
+		printf("%c\t",ar[i]);
 	}
-	
-	quicksort(newar,0,j-1);
-	for(int i=0;i<20;i++){printf("%c ",newar[i]);}
 }
 
 

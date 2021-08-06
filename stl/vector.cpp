@@ -1,3 +1,4 @@
+
 /*
 Karen, a coffee aficionado, wants to know the optimal temperature for brewing the perfect cup of coffee. Indeed, she has spent some time reading several recipe books, including the universally acclaimed "The Art of the Covfefe".
 
@@ -53,7 +54,7 @@ int main(){
 
 }
 
-*/
+
 
 
 #include<bits/stdc++.h>
@@ -159,7 +160,7 @@ int  main(){
 
 
 
-/* input , query . each query has l and r . find sum from l index to r index. 
+input , query . each query has l and r . find sum from l index to r index. 
 
 #include<bits/stdc++.h>
 using namespace std;
