@@ -1,0 +1,18 @@
+to find the substring in a string , use find function . 
+
+int found = str1.find(str2);
+
+
+if(found != string ::npos)
+	// found will give the first occurance of that substring
+else
+	no substring.
+	
+str::npos is basically end of the string.
+
+_______________________________________________________
+
+use string.substr(starting index , number of next char to be included).
+
+for palindome problem , 2-d dp is very useful.
+
